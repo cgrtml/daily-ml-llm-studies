@@ -56,6 +56,9 @@ class MultiHeadAttention(nn.Module):
         scores = torch.matmul(q, k.transpose(-2, -1)) / math.sqrt(self.head_dim)
 
         if mask is not None:
+            # Reshape mask for broadcasting with multi-head attention scores
+            if mask.dim() == 3:  # [batch_size, seq_len, seq_len] or [batch_size, 1, seq_len]
+                mask = mask.unsqueeze(1)  # Add head dimension
             scores = scores.masked_fill(mask == 0, -1e9)
 
         attention_weights = torch.softmax(scores, dim=-1)
@@ -199,23 +202,40 @@ class Transformer(nn.Module):
 
 # Example usage
 if __name__ == "__main__":
-    # Small toy example
+    # Smaller model for better performance on CPU
     src_vocab_size = 5000
     tgt_vocab_size = 5000
     batch_size = 2
     seq_length = 10
+    d_model = 128  # Reduced from 512 for faster execution
+    num_heads = 4  # Reduced from 8
+    num_encoder_layers = 2  # Reduced from 6
+    num_decoder_layers = 2  # Reduced from 6
 
-    # Create model
-    model = Transformer(src_vocab_size, tgt_vocab_size)
+    # Create model with reduced size
+    model = Transformer(
+        src_vocab_size,
+        tgt_vocab_size,
+        d_model=d_model,
+        num_heads=num_heads,
+        num_encoder_layers=num_encoder_layers,
+        num_decoder_layers=num_decoder_layers
+    )
+
+    # Ensure model uses CPU to avoid CUDA errors
+    device = torch.device('cpu')
+    model = model.to(device)
 
     # Random source and target sequences
-    src = torch.randint(1, src_vocab_size, (batch_size, seq_length))
-    tgt = torch.randint(1, tgt_vocab_size, (batch_size, seq_length))
+    src = torch.randint(1, src_vocab_size, (batch_size, seq_length)).to(device)
+    tgt = torch.randint(1, tgt_vocab_size, (batch_size, seq_length)).to(device)
 
-    # Create masks (in a real scenario, these would mask padding tokens)
-    src_mask = torch.ones(batch_size, 1, seq_length)
+    # Create masks with proper broadcasting dimensions
+    src_mask = torch.ones(batch_size, 1, 1, seq_length).to(device)  # [batch, 1, 1, seq_len]
+
     # Create causal mask for decoder (cannot look at future tokens)
-    tgt_mask = torch.tril(torch.ones(batch_size, seq_length, seq_length))
+    tgt_mask = torch.tril(torch.ones(seq_length, seq_length)).unsqueeze(0).unsqueeze(1)
+    tgt_mask = tgt_mask.expand(batch_size, 1, seq_length, seq_length).to(device)
 
     # Forward pass
     output = model(src, tgt, src_mask, tgt_mask)
