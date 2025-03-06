@@ -1,0 +1,64 @@
+{
+  "examples": [
+    {
+      "title": "Zero-Shot Classification",
+      "prompt": "Classify the following tweet into one of these categories: Technology, Politics, Sports, Entertainment, or Other.\n\n\"The new quantum processor demonstrated by researchers yesterday shows a 25% improvement in error correction rates compared to last generation chips.\"",
+      "technique": "zero-shot",
+      "explanation": "This prompt asks the model to classify the text without providing any examples of how to classify different categories."
+    },
+    {
+      "title": "Few-Shot Classification",
+      "prompt": "Classify the sentiment of the following reviews as positive, negative, or neutral.\n\nReview: \"The food was absolutely delicious, but the service was extremely slow.\"\nSentiment: Mixed\n\nReview: \"Worst purchase I've ever made. It broke within a week.\"\nSentiment: Negative\n\nReview: \"The product arrived on time and works as described.\"\nSentiment: Neutral\n\nReview: \"I've been using this app for three months now and I love how intuitive it is!\"\nSentiment: Positive\n\nReview: \"The hotel room was clean and spacious, but the noise from the street made it hard to sleep.\"\nSentiment:",
+      "technique": "few-shot",
+      "explanation": "This prompt provides examples of different sentiment classifications before asking the model to classify a new example."
+    },
+    {
+      "title": "Chain-of-Thought Reasoning",
+      "prompt": "Answer the following multi-step math problem. Think step-by-step.\n\nProblem: A store sells notebooks for $4 each and pens for $2 each. They're running a promotion where if you buy 3 notebooks, you get 1 pen free. If I have $30, what's the maximum number of writing implements (notebooks + pens) I can buy?\n\nLet's solve this step by step:",
+      "technique": "chain-of-thought",
+      "explanation": "This prompt encourages the model to break down the reasoning process into explicit steps, which helps with complex problem-solving."
+    },
+    {
+      "title": "Role Prompting for Technical Explanation",
+      "prompt": "You are a quantum physicist with 20 years of experience explaining complex concepts to non-specialists. Explain quantum entanglement in a way that a high school student would understand. Include an everyday analogy and address common misconceptions.",
+      "technique": "role",
+      "explanation": "Assigning a specific role to the model can help frame its response with the appropriate expertise and communication style."
+    },
+    {
+      "title": "Format Specification",
+      "prompt": "Create a JSON object representing a fictional movie with the following structure:\n{\n  \"title\": string,\n  \"year\": number,\n  \"director\": string,\n  \"genres\": array of strings,\n  \"cast\": array of objects with \"name\" and \"role\" fields,\n  \"ratings\": object with \"imdb\" and \"rottenTomatoes\" fields (both numbers)\n}\n\nThe movie should be a science fiction film from the 2010s.",
+      "technique": "format-specific",
+      "explanation": "This prompt clearly specifies the exact format expected in the output, which is useful for generating structured data."
+    },
+    {
+      "title": "Length-Controlled Summarization",
+      "prompt": "Summarize the following article in exactly 3 sentences. The summary should cover the main findings of the research, the methodology used, and the potential implications.\n\n[Article text would go here]",
+      "technique": "length-control",
+      "explanation": "Specifying the exact length helps control the verbosity of the model's response."
+    },
+    {
+      "title": "Multi-Persona Comparison",
+      "prompt": "Evaluate the following policy proposal from three different perspectives:\n\n1. As an economist focusing on long-term growth\n2. As an environmental scientist concerned about sustainability\n3. As a small business owner in a rural community\n\nPolicy: [Policy description would go here]\n\nFor each perspective, provide a 2-3 sentence analysis highlighting the key benefits or concerns from that viewpoint.",
+      "technique": "multi-persona",
+      "explanation": "This technique asks the model to consider multiple perspectives, which is useful for balanced analysis of complex topics."
+    },
+    {
+      "title": "Iterative Refinement",
+      "prompt": "I want to write a professional email requesting a meeting with a potential client. Let's approach this in steps:\n\n1. First, draft a bullet-point outline of the key points I should include\n2. Based on the outline, write a first draft of the email\n3. Improve the draft by making the language more engaging and professional\n4. Finally, add a compelling subject line\n\nThe purpose of the meeting is to present our new marketing analytics platform. The client is a mid-sized retail company that has expressed interest but is concerned about implementation complexity.",
+      "technique": "iterative",
+      "explanation": "Breaking a task into sequential steps allows for iterative refinement of the output."
+    },
+    {
+      "title": "Critique and Improvement",
+      "prompt": "Review and critique the following paragraph, then provide an improved version. Focus on clarity, conciseness, and engaging the reader.\n\n\"The utilization of artificial intelligence technologies in the domain of healthcare provision has demonstrated a significant potential for the augmentation of diagnostic accuracy and treatment protocol optimization, although various challenges pertaining to data privacy concerns and algorithmic transparency persist and necessitate further investigation and regulatory framework development.\"",
+      "technique": "critique-improve",
+      "explanation": "Asking for critique before improvement helps the model identify specific issues to address."
+    },
+    {
+      "title": "Tree of Thoughts",
+      "prompt": "I need to plan a three-day itinerary for first-time visitors to New York City with different interests and energy levels. Let's explore multiple possibilities.\n\nFirst, brainstorm three different themes for the trip (e.g., cultural, historical, food-focused).\n\nFor each theme:\n1. Outline a general schedule for morning, afternoon, and evening activities for all three days\n2. Identify potential challenges with this theme\n3. Suggest modifications that could address those challenges\n\nAfter exploring all three themes, recommend the best option and explain why.",
+      "technique": "tree-of-thoughts",
+      "explanation": "This approach explores multiple reasoning paths before converging on a solution, useful for complex planning problems."
+    }
+  ]
+}
